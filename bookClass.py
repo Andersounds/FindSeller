@@ -69,8 +69,8 @@ class bookObject():
             else:
                 print(key, ' is not an acceptable key.')
 
-        searchURL = self.baseURL + urllib.parse.urlencode(self.data)
-        return searchURL
+        return self.baseURL + urllib.parse.urlencode(self.data)
+
 
 
     #def help(self):
