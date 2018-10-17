@@ -1,6 +1,5 @@
-import urllib.request
-import urllib.parse
-#import beautifulsoup För att parsa upp informationen sen
+import requests
+from bs4 import BeautifulSoup
 
 class bookObject():
     def __init__(self,_params):
@@ -9,7 +8,7 @@ class bookObject():
         self.maxprice = None
         self.prio = None
         self.no_of_sellers = None
-        self.baseURL = 'https://www.bokborsen.se/?'
+        self.baseURL = 'https://www.bokborsen.se/'
     def __str__(self):
         return self.data['qt'] + '\t' + self.data['qa']
 
@@ -48,6 +47,12 @@ class bookObject():
     def add(self,givenKeys): # Add or change
         _setChosenDataFields(givenKeys)
 
+    def encodeurl(self): #Takes the dict in self.data and parses a url string together with self.baseURL
+        trailingurl = '?'
+        for key in self.data:
+            trailingurl = trailingurl + key + '=' + self.data[key] + '&'
+        return self.baseURL + trailingurl
+
     def getURL(self,parameters): #Creates an url that shows the result of a search of all set tags, sorted by what is set or default, and shows result page that is set
         # Only use keys that are not '' ? check if works!
         acceptedKeys = {'page':'_p',
@@ -69,7 +74,7 @@ class bookObject():
             else:
                 print(key, ' is not an acceptable key.')
 
-        return self.baseURL + urllib.parse.urlencode(self.data)
+        return self.encodeurl()
 
 
 
