@@ -1,7 +1,5 @@
 
 #from lxml import html
-import requests
-from bs4 import BeautifulSoup
 
 from bookClass import bookObject
 
@@ -13,19 +11,12 @@ def getListOfBooks():
 
 
 def main():
-    b1 = bookObject({'author': 'astrid','title':'pippi'})
+    b1 = bookObject({'author': 'astrid','title':'bullerbyn'})
     url = b1.getURL({'page':1, 'order':'asc', 'sortby':'price'}) #example url
     print(url)
+    print('returnvalue: ', b1.addPage(url))
 
-    page = requests.get(url)
-    soup = BeautifulSoup(page.text, 'html.parser')
-    sellers = soup.find_all(class_='seller')
-    for item in sellers:
-        seller = item.text.strip('Säljare:').strip()#strip initial 'Säljare:' and following whitespaces
-        seller = seller.strip('(företag)').strip()  #strip trailing '(företag)' and trailing whitespaces
-        print(seller)
+    #bookObject.getSellersFromPageData()
 
 
 main()
-#Säljare:
-#                                Riddare
