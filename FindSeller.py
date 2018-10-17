@@ -1,22 +1,23 @@
-
-#from lxml import html
-
-from bookClass import bookObject
+#import requests
+#from bs4 import BeautifulSoup
+from bookClass import searchObject
+from bookClass import compare
 
 def getListOfBooks():
-    b1 = bookObject({'author':'Astrid','title':'pippi'})
-
-#x = urllib.request.urlopen(url)
-#print(x.read())
+    pass
 
 
 def main():
-    b1 = bookObject({'author': 'astrid','title':'bullerbyn'})
-    url = b1.getURL({'page':1, 'order':'asc', 'sortby':'price'}) #example url
-    print(url)
-    print('returnvalue: ', b1.addPage(url))
+    searches = [searchObject({'author': 'murakami'}),
+                searchObject({'author': 'arthur c clarke'}),
+                searchObject({'author': 'aleksijevitj'}),
+                searchObject({'title': 'Kom in på en öl och en smörgås'}),
+                searchObject({'author': 'fallada'})]
 
-    #bookObject.getSellersFromPageData()
-
+    for search in searches:
+        search.getAndCompileHits({'page':1, 'order':'asc', 'sortby':'price'},99)
+    compare(searches)
+#Bokgrottan har bra pris med omslag o skiva
+#Måste ha ett sätt att spara undan alla träffar så att man enkelt kan utöka sökningen utan att behöva hämta all data igen
 
 main()
